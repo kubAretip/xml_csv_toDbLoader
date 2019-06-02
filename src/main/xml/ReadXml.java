@@ -31,7 +31,7 @@ public class ReadXml {
 
                 XMLEvent xmlEvent = xmlEventReader.nextEvent();
 
-                // jeśli napotka tag <>
+                // xml tag <>
                 if (xmlEvent.isStartElement()) {
 
                     StartElement startElement = xmlEvent.asStartElement();
@@ -59,15 +59,18 @@ public class ReadXml {
                         xmlEvent = xmlEventReader.nextEvent();
                         customer.addContact(xmlEvent.asCharacters().getData());
                     } else if (startElement.getName().getLocalPart().equalsIgnoreCase("city")) {
+                        //pomiń xml city tag
                     } else if (startElement.getName().getLocalPart().equalsIgnoreCase("persons")) {
+                        //pomiń xml persons tag
                     } else {
+                        //inne zdefiniowane tagi w xml to kontakty
                         xmlEvent = xmlEventReader.nextEvent();
                         customer.addContact(xmlEvent.asCharacters().getData());
                     }
 
                 }
 
-                // jeśli napotka </>
+                // xml tag </>
                 if (xmlEvent.isEndElement()) {
                     EndElement endElement = xmlEvent.asEndElement();
                     if (endElement.getName().getLocalPart().equals("person")) {

@@ -14,24 +14,19 @@ public class ReadCsv {
     private ReadCsv() {
     }
 
-    //mapowanie - zwaca listę obiektów Customer
-    public static List<Customer> parseCsv(String path) throws IOException {
-
+    public static List<Customer> parseCSV(String path) throws IOException {
 
         List<Customer> customers = new LinkedList<>();
 
-        FileInputStream inputStream = null;
-        Scanner scanner = null;
-        Customer customer = null;
+        Customer customer;
 
-
-        try {
-            inputStream = new FileInputStream(path);
-            scanner = new Scanner(inputStream, "UTF-8");
+        try (FileInputStream inputStream = new FileInputStream(path); Scanner scanner = new Scanner(inputStream, "UTF-8")) {
 
             while (scanner.hasNextLine()) {
 
+                try {
                     String[] line = scanner.nextLine().split(",");
+
                     customer = new Customer();
 
                     customer.setName(line[0]);
@@ -47,26 +42,24 @@ public class ReadCsv {
                         e.printStackTrace();
                     }
 
-                    customer.setContact(new ArrayList<>());
-                    for (int i = 4; i < line.length; i++) {
-                        customer.getContact().add(line[i]);
+                    if (line.length > 3) {
+                        customer.setContact(new ArrayList<>());
+                        for (int i = 4; i < line.length; i++) {
+                            customer.getContact().add(line[i]);
+                        }
                     }
 
                     customers.add(customer);
 
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    //catch empty line
+                }
             }
 
             if (scanner.ioException() != null) {
                 throw scanner.ioException();
             }
 
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
-            if (scanner != null) {
-                scanner.close();
-            }
         }
 
         return customers;

@@ -10,11 +10,11 @@ public class RecognizeTypeOfContact {
 
     private static RecognizeTypeOfContact recognizeTypeOfContact = null;
 
-    private static final String emailRegex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-    private static final String jabberRegex = "[^[a-zA-Z0-9_-]*$]{5,15}";
+    private final String emailRegex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+    private final String jabberRegex = "[^[a-zA-Z0-9_-]*$]{5,15}";
 
-    private static final Pattern emailPattern = Pattern.compile(emailRegex);
-    private static final Pattern jabberPattern = Pattern.compile(jabberRegex);
+    private final Pattern emailPattern = Pattern.compile(emailRegex);
+    private final Pattern jabberPattern = Pattern.compile(jabberRegex);
 
     private Map<String, String> preparedContacts = new HashMap<>();
 

@@ -2,7 +2,6 @@ package main.entity;
 
 import java.util.List;
 
-//Java beans mapping
 public class Customer {
     private Integer age;
     private String name;
